@@ -1,0 +1,12 @@
+[
+    {
+        "model": "disciplenowapi.meeting",
+        "pk": 1,
+        "fields": {
+            "label": "Meeting at the Coffee Shoppe",
+            "time": "13:30:00",
+            "date": "2022-01-01",
+            "group": 1
+        }
+    }
+]

@@ -1,0 +1,26 @@
+[
+    {
+        "model": "disciplenowapi.discipletomeeting",
+        "pk": 1,
+        "fields": {
+            "disciple": 1,
+            "meeting": 1
+        }
+    },
+    {
+        "model": "disciplenowapi.discipletomeeting",
+        "pk": 2,
+        "fields": {
+            "disciple": 2,
+            "meeting": 1
+        }
+    },
+    {
+        "model": "disciplenowapi.discipletomeeting",
+        "pk": 3,
+        "fields": {
+            "disciple": 3,
+            "meeting": 1
+        }
+    }
+]

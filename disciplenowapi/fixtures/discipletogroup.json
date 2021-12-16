@@ -1,0 +1,26 @@
+[
+    {
+        "model": "disciplenowapi.discipletogroup",
+        "pk": 1,
+        "fields": {
+            "disciple": 2,
+            "group": 1
+        }
+    },
+    {
+        "model": "disciplenowapi.discipletogroup",
+        "pk": 2,
+        "fields": {
+            "disciple": 3,
+            "group": 1
+        }
+    },
+    {
+        "model": "disciplenowapi.discipletogroup",
+        "pk": 3,
+        "fields": {
+            "disciple": 4,
+            "group": 1
+        }
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "model": "disciplenowapi.disciplegroup",
+        "pk": 1,
+        "fields": {
+            "lead_disciple": 1,
+            "group_type": 1
+        }
+    }
+]

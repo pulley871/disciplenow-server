@@ -1,0 +1,23 @@
+[
+    {
+        "model": "disciplenowapi.grouptype",
+        "pk": 1,
+        "fields": {
+            "label": "Beginner"
+        }
+    },
+    {
+        "model": "disciplenowapi.grouptype",
+        "pk": 2,
+        "fields": {
+            "label": "Intermediate"
+        }
+    },
+    {
+        "model": "disciplenowapi.grouptype",
+        "pk": 3,
+        "fields": {
+            "label": "Advance"
+        }
+    }
+]
