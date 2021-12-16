@@ -4,6 +4,8 @@ from django.db.models.fields import BooleanField
 from django.db.models.fields.related import ManyToManyField, OneToOneField
 from django.contrib.auth.models import User
 
+from disciplenowapi.models.entry import Entry
+
 
 class Disciple (models.Model):
     """Defines Disciple Class"""
@@ -14,3 +16,7 @@ class Disciple (models.Model):
         "DiscipleGroup", through="DiscipleToGroup", related_name="group_disciples")
     meetings = ManyToManyField(
         "Meeting", through="DiscipleToMeeting", related_name="attending_disciples")
+
+    @property
+    def entries(self):
+        return Entry.objects.filter(disciple__user=self.user)
