@@ -2,8 +2,8 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import BooleanField
 from django.db.models.fields.related import ManyToManyField, OneToOneField
-from django.contrib.auth.models import User
-
+from django.contrib.auth.models import Group, User
+from datetime import datetime, timedelta
 from disciplenowapi.models.entry import Entry
 
 
@@ -20,3 +20,18 @@ class Disciple (models.Model):
     @property
     def entries(self):
         return Entry.objects.filter(disciple__user=self.user)
+
+    @property
+    def has_posted(self):
+        end_date = datetime.now()
+        start_date = datetime.now() - timedelta(days=5)
+        entries = Entry.objects.filter(disciple__user=self.user)
+        checker = 0
+        for entry in entries:
+            converted_date = datetime(entry.date.year,entry.date.month,entry.date.day)
+            if start_date <= converted_date  <= end_date:
+                checker += 1
+        if checker >= 1:
+            return True
+        else:
+            return False

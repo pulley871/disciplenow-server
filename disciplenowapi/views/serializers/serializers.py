@@ -15,7 +15,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ("first_name", "last_name")
 
-
+class NeedToContactSerializer(serializers.ModelSerializer):
+    user = UserSerializer(many=False)
+    class Meta:
+        model = Disciple
+        fields = ("id","user","has_posted")
 class DiscipleSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
     entries = EntrySerializer(many=True)
