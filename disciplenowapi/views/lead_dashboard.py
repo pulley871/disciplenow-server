@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from disciplenowapi.models import Disciple, DiscipleGroup
-
+from datetime import datetime, timedelta
 from .serializers import LeadSerializer, DiscipleGroupSerializer, DiscipleSerializer, NeedToContactSerializer
 
 
@@ -13,13 +13,23 @@ from .serializers import LeadSerializer, DiscipleGroupSerializer, DiscipleSerial
 @permission_classes([IsAuthenticated])
 def lead_dashboard(request):
     try:
-        lead_disciple = Disciple.objects.get(user=request.auth.user, is_lead= True)
+        lead_disciple = Disciple.objects.get(
+            user=request.auth.user, is_lead=True)
         group = DiscipleGroup.objects.get(lead_disciple=lead_disciple)
         failed_to_post = []
+        lead_sent_message = lead_disciple.sent_messages.all()
+        end_date = datetime.now()
+        start_date = datetime.now() - timedelta(days=5)
         for disciple in group.group_disciples.all():
-            if disciple.has_posted == False:
-                failed_to_post.append(disciple)
-        failed_to_post = NeedToContactSerializer(failed_to_post, many=True, context={"request": request})
+            for message in lead_sent_message:
+                converted_date = datetime(
+                    message.date.year, message.date.month, message.date.day)
+                if message.disciple == disciple and start_date <= converted_date <= end_date:
+                    pass
+                elif disciple.has_posted == False:
+                    failed_to_post.append(disciple)
+        failed_to_post = NeedToContactSerializer(
+            failed_to_post, many=True, context={"request": request})
         lead_disciple = LeadSerializer(
             lead_disciple, many=False, context={"request": request})
         group = DiscipleGroupSerializer(

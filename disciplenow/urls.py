@@ -18,8 +18,12 @@ from django.urls import path
 
 from django.urls.conf import include
 from rest_framework import routers
-from disciplenowapi.views import lead_dashboard
+from disciplenowapi.views import lead_dashboard, DiscipleView, MessageView
+
+
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'disciples', DiscipleView, 'disciple')
+router.register(r'messages', MessageView, 'message')
 
 urlpatterns = [
     path('', include(router.urls)),
