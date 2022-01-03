@@ -5,14 +5,12 @@ from django.contrib.auth.models import User
 
 from disciplenowapi.models.message import Message
 
-class MessageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Message
-        fields = ("id","date", "body", "is_read" )
+
 class EntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Entry
-        fields = ("id", "hear", "engage", "apply", "respond", "date", "reference")
+        fields = ("id", "hear", "engage", "apply",
+                  "respond", "date", "reference")
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -20,11 +18,31 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ("first_name", "last_name")
 
+
 class NeedToContactSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
+
     class Meta:
         model = Disciple
-        fields = ("id","user","has_posted")
+        fields = ("id", "user", "has_posted")
+
+
+class MessageContact(serializers.ModelSerializer):
+    user = UserSerializer(many=False)
+
+    class Meta:
+        model = Disciple
+        fields = ("id", "user")
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    lead_disciple = MessageContact(many=False)
+
+    class Meta:
+        model = Message
+        fields = ("id", "date", "body", "is_read", "lead_disciple")
+
+
 class DiscipleSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
     entries = EntrySerializer(many=True)
@@ -33,7 +51,7 @@ class DiscipleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Disciple
         messages = MessageSerializer(many=True)
-        fields = ("id", "has_posted", "user", "entries","is_lead","messages")
+        fields = ("id", "has_posted", "user", "entries", "is_lead", "messages")
 
 
 class DiscipleGroupSerializer(serializers.ModelSerializer):
@@ -48,6 +66,7 @@ class LeadSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
     entries = EntrySerializer(many=True)
     messages = MessageSerializer(many=True)
+
     class Meta:
         model = Disciple
         fields = ("id", "is_lead", "has_posted", "user", "entries", "messages")
