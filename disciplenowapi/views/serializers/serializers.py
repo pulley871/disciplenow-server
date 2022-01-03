@@ -3,11 +3,16 @@ from rest_framework import serializers
 from disciplenowapi.models import DiscipleGroup, Disciple, DiscipleToGroup, Entry
 from django.contrib.auth.models import User
 
+from disciplenowapi.models.message import Message
 
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ("id","date", "body", "is_read" )
 class EntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Entry
-        fields = ("id", "hear")
+        fields = ("id", "hear", "engage", "apply", "respond", "date", "reference")
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -23,10 +28,12 @@ class NeedToContactSerializer(serializers.ModelSerializer):
 class DiscipleSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
     entries = EntrySerializer(many=True)
+    messages = MessageSerializer(many=True)
 
     class Meta:
         model = Disciple
-        fields = ("id", "has_posted", "user", "entries")
+        messages = MessageSerializer(many=True)
+        fields = ("id", "has_posted", "user", "entries","is_lead","messages")
 
 
 class DiscipleGroupSerializer(serializers.ModelSerializer):
@@ -39,7 +46,8 @@ class DiscipleGroupSerializer(serializers.ModelSerializer):
 
 class LeadSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
-
+    entries = EntrySerializer(many=True)
+    messages = MessageSerializer(many=True)
     class Meta:
         model = Disciple
-        fields = ("id", "is_lead", "has_posted", "user")
+        fields = ("id", "is_lead", "has_posted", "user", "entries", "messages")

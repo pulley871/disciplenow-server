@@ -12,6 +12,7 @@
         "disciple": 1
     }
 },
+
 {
     "model": "disciplenowapi.entry",
     "pk": 2,
@@ -49,6 +50,19 @@
         "reference": "Testing Testing ",
         "date": "2022-01-01",
         "disciple": 4
+    }
+},
+{
+    "model": "disciplenowapi.entry",
+    "pk": 5,
+    "fields": {
+        "hear": "Testing Testing ",
+        "engage": "Testing Testing ",
+        "apply": "Testing Testing ",
+        "respond": "Testing Testing ",
+        "reference": "Testing Testing ",
+        "date": "2022-01-02",
+        "disciple": 2
     }
 }
 ]

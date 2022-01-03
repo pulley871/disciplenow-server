@@ -5,13 +5,14 @@ from django.db.models.fields.related import ManyToManyField, OneToOneField
 from django.contrib.auth.models import Group, User
 from datetime import datetime, timedelta
 from disciplenowapi.models.entry import Entry
+from disciplenowapi.models.message import Message
 
 
 class Disciple (models.Model):
     """Defines Disciple Class"""
     user = OneToOneField(User, on_delete=CASCADE)
     is_lead = BooleanField(default=False)
-    has_posted = BooleanField(default=True)
+    has_posted = BooleanField()
     groups = ManyToManyField(
         "DiscipleGroup", through="DiscipleToGroup", related_name="group_disciples")
     meetings = ManyToManyField(
@@ -31,7 +32,11 @@ class Disciple (models.Model):
             converted_date = datetime(entry.date.year,entry.date.month,entry.date.day)
             if start_date <= converted_date  <= end_date:
                 checker += 1
-        if checker >= 1:
+        if checker > 1:
             return True
         else:
             return False
+    @property
+    def messages(self):
+        messages = Message.objects.filter(disciple__user = self.user)
+        return messages

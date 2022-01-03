@@ -4,8 +4,7 @@
         "pk": 1,
         "fields": {
             "user": 1,
-            "is_lead": true,
-            "has_posted": true
+            "is_lead": true
         }
     },
     {
@@ -13,8 +12,7 @@
         "pk": 2,
         "fields": {
             "user": 2,
-            "is_lead": false,
-            "has_posted": true
+            "is_lead": false
         }
     },
     {
@@ -22,8 +20,7 @@
         "pk": 3,
         "fields": {
             "user": 3,
-            "is_lead": false,
-            "has_posted": true
+            "is_lead": false
         }
     },
     {
@@ -31,8 +28,15 @@
         "pk": 4,
         "fields": {
             "user": 4,
-            "is_lead": false,
-            "has_posted": true
+            "is_lead": false
+        }
+    },
+    {
+        "model": "disciplenowapi.disciple",
+        "pk": 5,
+        "fields": {
+            "user": 5,
+            "is_lead": false
         }
     }
 ]
