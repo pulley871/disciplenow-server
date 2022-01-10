@@ -18,14 +18,19 @@ from django.urls import path
 
 from django.urls.conf import include
 from rest_framework import routers
-from disciplenowapi.views import lead_dashboard, selected_disciple, DiscipleView, MessageView, disciple_home
+from disciplenowapi.views import lead_dashboard, selected_disciple, DiscipleView, MessageView, disciple_home, is_lead_check, EntryView, promote_selected_disciple, login, add_member_to_group
 router = routers.DefaultRouter(trailing_slash=False)
 router.register("disciples", DiscipleView, "disciple")
 router.register("messages", MessageView, "message")
+router.register("entries", EntryView, "entry")
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('leadcheck', is_lead_check),
     path('lead-dashboard', lead_dashboard),
     path('disciple-home', disciple_home),
-    path('selected-disciple/<slug:pk>', selected_disciple)
+    path('selected-disciple/<slug:pk>', selected_disciple),
+    path('promote-disciple/<slug:pk>', promote_selected_disciple),
+    path('addtogroup', add_member_to_group),
+    path('login', login)
 ]

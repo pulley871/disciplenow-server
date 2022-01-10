@@ -38,3 +38,13 @@ class MessageView(ViewSet):
             return Response(data.data, status=status.HTTP_200_OK)
         except Exception as ex:
             return Response({"Message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def partial_update(self, request, pk=None):
+        """Update Message Read Status"""
+        try:
+            message = Message.objects.get(pk=pk)
+            message.is_read = True
+            message.save()
+            return Response({"Message": "Message updated"}, status=status.HTTP_204_NO_CONTENT)
+        except Exception as ex:
+            return Response({"Message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
